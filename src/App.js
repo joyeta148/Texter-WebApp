@@ -3,6 +3,7 @@ import './App.css';
 import { Button, FormControl, InputLabel, Input } from '@mui/material';
 import Message from './Message';
 import db from './firebase';
+import firebase from 'firebase/compat/app';
 
 function App() {
 
@@ -15,9 +16,11 @@ function App() {
 
   useEffect(() => {
     // run once when the app component loads
-    db.collection('messages').onSnapshot(snapshot => {
-      setMessages(snapshot.docs.map(doc => doc.data()))
-    })
+    db.collection('messages')
+      .orderBy('timestamp', 'asc')
+      .onSnapshot(snapshot => {
+        setMessages(snapshot.docs.map(doc => doc.data()))
+      })
   }, [])
 
   useEffect(() => {
@@ -30,8 +33,14 @@ function App() {
 
   const sendMessage = (event) => {
     event.preventDefault();
+
+    db.collection('messages').add({
+      message: input,
+      username: username,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
     //all the logic to send a message
-    setMessages([...messages, { username: username, text: input }]);   //...messages(keeps the previous chat messages and add input message along with it)
+    setMessages([...messages, { username: username, message: input }]);   //...messages(keeps the previous chat messages and add input message along with it)
 
     setInput("");
   }
