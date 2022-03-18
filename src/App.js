@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Button, FormControl, InputLabel, Input } from '@mui/material';
+import { FormControl, InputLabel, Input } from '@mui/material';
 import Message from './Message';
 import db from './firebase';
 import firebase from 'firebase/compat/app';
 import FlipMove from 'react-flip-move';
+import { IconButton } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 function App() {
 
@@ -53,12 +55,13 @@ function App() {
 
       <h2>🎊 Welcome {username} 🎊</h2>
 
-      <form>
+      <form className="app_form">
 
-        <FormControl>
-          <InputLabel>Enter a message...</InputLabel>
-          <Input value={input} onChange={event => setInput(event.target.value)} />
-          <Button disabled={!input} variant="contained" color="primary" type="submit" onClick={sendMessage}>Send Message</Button>
+        <FormControl className='app_formControl'>
+          <Input className='app_input' placeholder="Enter a message..." value={input} onChange={event => setInput(event.target.value)} />
+          <IconButton className='app_iconButton' disabled={!input} variant="contained" color="primary" type="submit" onClick={sendMessage}>
+            <SendIcon />
+          </IconButton>
         </FormControl>
 
       </form>
