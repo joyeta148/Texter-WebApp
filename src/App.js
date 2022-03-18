@@ -48,7 +48,9 @@ function App() {
 
   return (
     <div className="App">
+      <img src="https://www.pngkit.com/png/detail/128-1284523_group-chat-icon-google-group-chat-icon.png" />
       <h1>👩‍💻 👨‍💻 Hello Texter ! ✨🙋‍♀️✨</h1>
+
       <h2>🎊 Welcome {username} 🎊</h2>
 
       <form>
